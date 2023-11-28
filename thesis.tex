@@ -1,0 +1,109 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+%--------------------------------------------------------------------------------------
+% Csomagok inicializálása [Initializing packages]
+%--------------------------------------------------------------------------------------
+\input{include/packages}
+\input{include/language-setup-hu}
+\input{include/preamble}
+
+\selectbsc    % Szakdolgozat [Bachelor's]
+
+\def\authorFamilyName{Sándor}
+\def\authorGivenName{Tibor}
+\def\neptun{C7XUDE}
+
+\def\consulentATitle{dr.~}
+\def\consulentAFamilyName{Koós}
+\def\consulentAGivenName{Krisztiánné}
+\def\consulentARank{docens}
+
+\def\consulentBTitle{}
+\def\consulentBFamilyName{}
+\def\consulentBGivenName{}
+\def\consulentBRank{}
+
+\def\consulentCTitle{}
+\def\consulentCFamilyName{}
+\def\consulentCGivenName{}
+\def\consulentCRank{}
+
+% Témavezető
+\def\supervisorTitle{dr.~}
+\def\supervisorFamilyName{Budai}
+\def\supervisorGivenName{Csaba}
+\def\supervisorRank{adjunktus}
+
+% Dolgozat címe [Thesis title]
+\def\thesisTitle{Új Tanuláselméleti Eredményekkel Támogatott Oktatási Anyagok Fejlesztése és Alkalmazása}
+
+\def\keywords{mechatronika, matematika}
+
+\def\department{\bmemogi}
+
+\def\endOfRestrictedAccess{... év ... hónap ... nap}
+
+\applyvariables
+
+
+%--------------------------------------------------------------------------------------
+% Dokumentum törzse [Document body]
+%--------------------------------------------------------------------------------------
+
+\begin{document}
+
+\pagenumbering{gobble}
+\selectthesislanguage
+
+% Címoldal [Titlepage]
+\include{include/titlepage-thesis}  % Szakdolgozat/Diplomaterv címlap [Thesis]
+
+
+% Copytightoldal [Copyright page]
+%TODO Válaszd ki a megfelelőt! [Choose one]
+\include{include/copyrightpage}               % Nyílt kezelésű [Open access]
+%\include{include/copyrightpage-restricted}   % Elzárt kezelésű [Restricted access]
+
+
+% Feladatkiírás [Project page]
+%TODO A nyomtatott verzóban ne szerepeljen! [Remove before printing]
+\include{chapters/project}
+
+
+% Nyilatkozatok [Declarations]
+\include{include/declaration}
+
+\selectthesislanguage
+\setcounter{tocdepth}{3}
+\tableofcontents\vfill
+
+\listoffigures\addcontentsline{toc}{chapter}{\listfigurename}
+\listoftables\addcontentsline{toc}{chapter}{\listtablename}
+\renewcommand\lstlistingname{Kódrészlet}
+\renewcommand\lstlistlistingname{Kódrészletek jegyzéke}
+\lstlistoflistings\addcontentsline{toc}{chapter}{\lstlistlistingname}
+
+\include{chapters/preface}
+\include{chapters/symbols}
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+% Main content starts here
+\include{chapters/introduction}
+\include{chapters/documents}
+\include{chapters/automatization}
+\include{chapters/results}
+\include{chapters/summary}
+% Main content ends here
+
+\addcontentsline{toc}{chapter}{\bibname}{%
+	\footnotesize%
+	\bibliography{bib/mybib}
+}
+
+\include{chapters/summary-foreign}
+\include{chapters/appendices}
+\include{chapters/annexes}
+
+\end{document}

@@ -1,0 +1,862 @@
+%! TEX root = ../thesis.tex
+
+% ------------------------------------------------------------------------------
+\cleardoublepage
+% ------------------------------------------------------------------------------
+\chapter{Az oktatási anyagok}
+% ------------------------------------------------------------------------------
+
+% This is a small summary of this chapter
+Ebben a fejezetben az elkészült oktatási anyagokat fogom bemutatni.
+Egy rövid történelmi áttekintő után bemutatom, hogy milyen megfontolás alapján
+döntöttem a \LaTeX{} nyelv használata mellett. Bemutatom a technológia előnyeit
+a szokványos szövegszerkesztőkkel szemben, megmutatom egy ilyen dokumentum
+általános felépítéseit, és a leggyakrabban használt gyári parancsokat.
+Az alapok után kitérek arra, hogy hogyan lehet saját parancsokat, környezeteket,
+csomagokat és osztályokat létrehozni, és hogyan lehet ezeket felhasználni,
+ezzel is megkönnyítve a dokumentumok szerkesztését.
+
+% ------------------------------------------------------------------------------
+\section{A \LaTeX{} dokumentumok általános tulajdonságai}
+% ------------------------------------------------------------------------------
+
+% This is a summary of waht LaTeX is
+A \LaTeX{} egy olyan dokumentumkészítő rendszer, melyet széles körben használnak
+tudományos munkák készítésére, különösen olyan területeken, mint a matematika,
+fizika, kémia, vagy éppen az informatika. A \LaTeX{} más dokumentumszerkesztő
+szoftverekkel (pl. \textit{Microsoft Word}, \textit{LibreOffice Writer})
+ellentétben nem a \textit{WYSIWYG} (What You See Is What You Get -- Amit látsz,
+azt kapod) elvet követi. Az ilyen szövegszerkesztők -- a \LaTeX{}-kal
+-- ellentétben egy olyan interaktív felületet biztosítanak, amelyen a
+felhasználó a dokumentumot szerkesztés közben úgy látja, ahogyan az a nyomtatott
+verzióban meg fog jelenni. A \LaTeX{} esetében ez a folyamat teljesen más. A
+domunetum egy egyszerű szövegfájl (általában \texttt{.tex} kiterjesztéssel),
+amelyben a szerző a szöveg mellett speciális parancsokat is használhat, melyek
+meghatározzák a dokumentum felépítését, formáját, stílusát, és egyéb
+tulajdonságait. Ezt a szövegfájlt egy \TeX motornak nevezett program fordítja
+le PDF formátumú dokumentummá. A \LaTeX{} tehát egy leíró nyelv, amelyet a
+szerzők a dokumentum tartalmának megadására használnak, és amelyet a
+fordítóprogramok a dokumentum formázására használnak. \cite{overleaf_30}
+
+% ------------------------------------------------------------------------------
+\subsection{A \LaTeX{} története}
+% ------------------------------------------------------------------------------
+
+% A brief history of LaTeX
+A \TeX{} eredetileg Donald Knuth matematikus professzor számítógépes
+tipográfiai rendszerének neve volt. Knuth a hetvenes években kezdett el
+foglalkozni a témával, mivel elégedetlen volt a korabeli számítógépes
+nyomtatási technológiával. Célja az volt, hogy egy olyan rendszert hozzon létre,
+amellyel szép könyvek készíthetőek, különösen olyanok, amelyekben sok
+matematikai képlet is szerepel. \cite{texbook}
+
+A \TeX{} abban az időben forradalmi újításnak számított, hiszen lehetővé tette
+a dokumentumok felépítése, a szöveg megjelenése, és a matematikai egyenletek
+feletti teljes kontrollt. Hamar népszerűvé vált a tudományos közösségben, hiszen
+egyszerűen lehetett vele komplex dokumentumokat készíteni, melyek megjelenése
+is minőségibb volt, mint a korabeli szövegszerkesztőkkel készített
+dokumentumoké.
+
+Az 1980-as években Leslie Lamport, a Digital Equipment Corporation kutatója
+arra a felismerésre jutott, hogy bár a \TeX{} egy rendkívül hatékony eszköz, a
+kezdők számára használata korántsem egyszerű. Ennek a feloldására Lamport
+olyan makrókat készített, melyek felhasználóbarátabb interfészt biztosítottak a
+dokumentumszerkesztésbe belevágó kalandorok számára. Ezt a rendszert
+\LaTeX{}-nek nevezék el, amely a \textit{Lamport's \TeX} rövidítése.
+\cite{latex2e}
+
+% ------------------------------------------------------------------------------
+\subsection{A \LaTeX{} előnyei}
+% ------------------------------------------------------------------------------
+
+% Why use LaTeX?
+A \LaTeX{} rendszert gyakran a \textit{WYSIWYG} dukumentumszerkesztőkkel
+szokás összehasonlítani. Nézzük meg, hogy miért érdemes tudományos munkák
+készítéséhez a \LaTeX{}-et használni.
+
+\begin{enumerate}
+	\item \textbf{Rendkívül jól kezeli a komplex dokumentumokat}:
+	      A \LaTeX{} kiváló választás összetett szerkezetű, nagy terjedelmű
+	      dokumentumok -- mint például egy diplomamunka -- készítéséhez.
+	      Biztosítja a dokumentumok könnyű szerkeszthetőségét és
+	      konzisztenciáját.
+
+	\item \textbf{A tartalom és a stilisztika kettéválasztása}:
+	      A \LaTeX{} különválasztja a dokumentum tartalmát a stílusától. Ez
+	      elősegíti azt, hogy a szerzőknek csak a tartalomra kelljen koncentrálni,
+	      a dokumentum kiváló megjelenését a \LaTeX{} fogja biztosítani.
+
+	\item \textbf{Fejlett matematikai képességek}:
+	      A \LaTeX{} segítségével gyorsan és egyszerűen lehet matematikai
+	      képleteket és szimbólumokat beilleszteni a dokumentumokba.
+
+	\item \textbf{Testreszabhatóság}:
+	      A \LaTeX{} rendelkezik olyan eszközökkel, amelyek lehetővé teszik a
+	      felhasználók számára, hogy a dokumentumok megjelenését a saját
+	      igényeikhez igazítsák.
+
+	\item \textbf{Automatizált bibliográfiakezelés}:
+	      A \LaTeX{} rendelkezik olyan eszközökkel, amelyek lehetővé teszik a
+	      hivatkozások automatikus kezelését. A szerzőnek csak meg kell adnia a
+	      hivatkozásokat tartalmazó adatbázist, a \LaTeX{} pedig ezek alapján
+	      automatikusan generálja a hivatkozásokat.
+
+	\item \textbf{Platformfüggetlenség}:
+	      A \LaTeX{} egy olyan nyelv, amelyet bármilyen operációs rendszeren
+	      lehet használni. A szerzőnek csak egy szövegszerkesztőre van szüksége.
+
+	\item \textbf{Kollaboráció és verziókezelés}:
+	      Mivel a \LaTeX{} dokumentumok forrásai egyszerű szövegfájlok, ezért
+	      könnyen kezelhetőek verziókezelő rendszerekkel.
+
+	\item \textbf{Nyílt forráskód}:
+	      A \LaTeX{} egy nyílt forráskódú szoftver, amelyet bárki szabadon
+	      felhasználhat, módosíthat, és terjeszthet. A \LaTeX{}-et a
+	      \textit{\LaTeX{} Project} fejleszti. \cite{latex_project}
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+\section{A \LaTeX{}-kel készített dokukenumok felépítése}
+% ------------------------------------------------------------------------------
+
+% The structure of a LaTeX document
+Egy \LaTeX{} dokumentum két fő részből áll: a \textit{preambulumból} és a
+\textit{dokumentum törzsből}. A preambulum a dokumentum elején található, és a
+dokumentum formázásához szükséges beállításokat tartalmazza. A törzsben pedig
+maga a tartalmai rész jelelentik meg. Az alábbi kódrészletben egy \LaTeX{}
+dokumentum egy egyszerű példáját láthatjuk:
+
+\begin{lstlisting}[caption={\LaTeX{} mintaprogram},language=tex]
+  % Preambulum
+  \documentclass{article}
+
+  % Törzs
+  \begin{document}
+    Hello World!
+  \end{document}
+\end{lstlisting}
+
+
+% ------------------------------------------------------------------------------
+\subsection{A preambulum}
+% ------------------------------------------------------------------------------
+
+% The preamble
+A preambulum a dokumentum elején található, a
+\inlinecode{\textbackslash begin\{document\}}
+parancs előtt. Ebben a részben definiálhatjuk a dokumentum osztályát, a használt
+csomagokat, és a dokumentum egyéb tulajdonságait.
+
+Oszályt a
+\inlinecode{\textbackslash documentclass}
+paranccsal adhatunk meg. Használhatunk a \textit{\LaTeX{} Project} által
+biztosított osztályokat (pl. \texttt{article}, \texttt{report}, \texttt{book}),
+harmadik fél által készített osztályokat (pl. \texttt{scrartcl},
+\texttt{scrbook}), vagy akár saját osztályokat is. Ezek az osztályok a
+dokumentumok különböző típusait reprezentálják. Az \texttt{article} osztály
+például rövid dokumentumok készítésére alkalmas, míg a \texttt{book} osztály
+hosszabb dokumentumok készítésére. Az osztályok definiálják a dokumentum
+alapértelmezett formázását, valamint a dokumentumhoz tartozó parancsokat és
+környezeteket. \cite{latex_project}
+
+A dokumentum osztályának megadása után a
+\inlinecode{\textbackslash usepackage}
+paranccsal csomagokat tölthetünk be. A csomagok olyan kiegészítő modulok,
+amelyek új parancsokat és környezeteket definiálnak, vagy a meglévőket
+módosítják. Bemutatok néhány gyakran használt csomagot:
+
+\begin{lstlisting}[language=tex,caption={Népszerű \LaTeX csomagok}]
+  % A magyar nyelv támogatása
+  \usepackage[magyar]{babel}
+
+  % Dokuemntum margóinak beállítása (1 inch mindenhol)
+  \usepackage[margin=1in]{geometry}
+
+  % Matematikai szimbólumok, környezetek (több csomag egyszerre)
+  \usepackage{amsmath,amssymb}
+
+  % Grafikák beillesztéséhez
+  \usepackage{graphicx}
+
+  % Színes szöveg (68 alapszínnel)
+  \usepackage[dvipsnames]{xcolor}
+
+  % Hivasztások kezeléséhez (luatex módban)
+  \usepackage[luatex]{hyperref}
+
+  % Fej és lábléc kezeléséhez
+  \usepackage{fancyhdr}
+\end{lstlisting}
+
+Mind az osztály, mind a csomagok betöltése esetén lehetőségünk van opcionális
+argumentumok megadására is. Ezeket a kapcsos zárójelek közé írjuk. Osztály
+esetén definiálhatjuk például az alapértelmezett betűméretet
+(\inlinecode{[12pt]}),
+a papírméretet
+(\inlinecode{[a4paper]}),
+vagy akár azt, hogy a dokumentum egy-, vagy kétoldalas legyen
+(\inlinecode{[twoside]}).
+Csomagok esetén pedig megadhatjuk például, hogy a csomag milyen nyelvet tölt be
+(\inlinecode{\textbackslash usepackage[magyar]\{babel\}}),
+a betölteni kívánt tulajdonságokat
+(\inlinecode{\textbackslash usepackage[dvipsnames]\{xcolor\}}),
+vagy akár azt, hogy a csomag milyen módban működjön
+(\inlinecode{\textbackslash usepackage[luatex]\{hyperref\}}).
+
+Ezek után a dokumentum többi tulajdonságait is beállíthatjuk. Megadhatjuk a
+dokumentum címét, szerzőjét, dátumát.
+
+\begin{lstlisting}[language=tex,caption={Dokumentum tulajdonságai}]
+  \title{Cím}
+  \author{Szerző neve}
+  \date{Dátum}
+\end{lstlisting}
+
+Lehetőségünk van más beállítások módosítására is. Modosíthatjuk a dokumentum
+oldalainak margóit, a fej és láblécet, a sorközt, és még sok más beállítást.
+
+\begin{lstlisting}[language=tex,caption={Dokuemntum beállításai}]
+  % Margók beállítása (\usepackage[margin=1in]{geometry}-vel ekvivalens)
+  % \usepackage{geometry}
+  \geometry{margin=1in}
+
+  % Fejléc, lábléc, és stílus beállítása
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \lhead{Bal oldali fejléc} \rhead{Jobb oldali fejléc} \chead{Középső fejléc}
+  \lfoot{Bal oldali lábléc} \rfoot{Jobb oldali lábléc} \cfoot{Középső lábléc}
+\end{lstlisting}
+
+Ha szeretnénk, akkor a dokumentum elején definiálhatunk saját parancsokat is.
+Ezekről a későbbiekben lesz szó.
+
+% ------------------------------------------------------------------------------
+\subsection{A dokuemntum törzse}
+% ------------------------------------------------------------------------------
+
+% The document body
+A dokumentum törzse a
+\inlinecode{\textbackslash begin\{document\}}
+parancs után kezdődik, és az
+\inlinecode{\textbackslash end\{document\}}
+parancs előtt ér véget. Ebben a részben definiálhatjuk a dokumentum tartalmát. A
+törzsben használhatunk szöveget, matematikai képleteket, táblázatokat, képeket,
+és még sok más elemet.
+
+A több természetesen -- akár általunk definiált -- parancsokat is
+alkalmazhatunk. A parancsokat a \texttt{\textbackslash} karakterrel kezdjük,
+majd a parancs nevét írjuk le. A parancsok paramétereket is kaphatnak, amelyeket
+kapcsos vagy szögletes zárójelek közé írunk attól függően, hogy a paraméter
+kötelező vagy opcionális.
+
+A \LaTeX{} dokumentumokban a szövegformázásra számos lehetőségünk van.
+A leggyakrabban használtak:
+
+\begin{minipage}[t]{.5\textwidth}
+	\begin{lstlisting}[language=tex,caption={Szövegformázási parancsok}]
+  % Betűtípus beállítása (mono, dőlt, félkövér)
+  \texttt{mono} \textit{italic} \textbf{boldface}
+
+  % Betűméret beállítása (apró, kicsi, nagy)
+  {\tiny tiny} {\small small} {\large large}
+
+  % Betűszín beállítása (piros, kék)
+  {\color{red} red} {\color{blue} blue}
+
+  % Aláhúzás, kiemelés
+  \underline{underline} \emph{emphasis}
+\end{lstlisting}
+\end{minipage}\hfill%
+\begin{minipage}[t]{.4\textwidth}
+	\vspace{18pt}
+	\texttt{mono} \textit{italic} \textbf{boldface}
+	\\[18pt]
+	{\tiny tiny} {\small small} {\large large}
+	\\[18pt]
+	{\color{red} red} {\color{blue} blue}
+	\\[14pt]
+	\underline{underline} \emph{emphasis}
+\end{minipage}
+
+A \LaTeX{} által biztosított környezetek segítségével különböző felsorolásokat
+is létrehozhatunk. Egy ilyen környezet a
+\inlinecode{\textbackslash begin\{<környezet neve>\}}
+paranccsal kezdődik, és az
+\inlinecode{\textbackslash end\{<környezet neve>\}}
+paranccsal ér véget. A \texttt{enumerate} környezet sorszámozott, míg az
+\texttt{itemize} környezet számozatlan felsorolást hoz létre.
+
+\begin{minipage}[t]{.5\textwidth}
+	\begin{lstlisting}[language=tex,caption={Felsorolások}]
+  \begin{enumerate}
+    \item Egy számozott elem
+    \item Egy másik számozott elem
+  \end{enumerate}
+
+  \begin{itemize}
+    \item Egy számozatlan elem
+    \item Egy másik számozatlan elem
+  \end{itemize}
+\end{lstlisting}
+\end{minipage}%
+\begin{minipage}[t]{.5\textwidth}
+	\vspace{12pt}
+	\begin{enumerate}
+		\item Egy számozott elem
+		\item Egy másik számozott elem
+	\end{enumerate}
+
+	\begin{itemize}
+		\item Egy számozatlan elem
+		\item Egy másik számozatlan elem
+	\end{itemize}
+\end{minipage}
+
+Matematikai képleteket az alábbi módon illeszthetünk be a dokumentumba:
+
+\begin{minipage}[t]{.6\textwidth}
+	\begin{lstlisting}[language=tex,caption={Matematikai képletek}]
+  % Szövegbe ágyazott képlet
+  A szög értéke $\alpha = 90^\circ$.
+
+  % Különálló képlet
+  \begin{equation}
+    \alpha = 90^\circ
+  \end{equation}
+
+  % Különálló képlet, sorszámozás nélkül
+  \begin{equation*}
+    \alpha = 90^\circ
+  \end{equation*}
+
+  % Többsoros képlet, sorszámozással, =-nél igazítva
+  % \usepackage{amsmath} (preambulumban)
+  \begin{align}
+    \alpha + \beta &= 90^\circ \\
+    \gamma &= 90^\circ
+  \end{align}
+
+  % Többsoros képlet, sorszámozás és igazítás nélkül
+  % \usepackage{amsmath} (preambulumban)
+  \begin{gather*}
+    \alpha + \beta = 90^\circ \\
+    \gamma = 90^\circ
+  \end{gather*}
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}[t]{.35\textwidth}
+	\vspace{18pt}
+	\phantom{alma} A szög értéke $\alpha = 90^\circ$.
+
+	\vspace{15pt}
+	\begin{equation}
+		\alpha = 90^\circ
+	\end{equation}
+
+	\vspace{10pt}
+	\begin{equation*}
+		\alpha = 90^\circ
+	\end{equation*}
+
+	\vspace{10pt}
+	\begin{align}
+		\alpha + \beta & = 90^\circ \\
+		\gamma         & = 90^\circ
+	\end{align}
+
+	\vspace{-10pt}
+	\begin{gather*}
+		\alpha + \beta = 90^\circ \\
+		\gamma = 90^\circ
+	\end{gather*}
+\end{minipage}
+
+Táblázatokat a \texttt{tabular} környezettel hozhatunk létre. A környezet
+paramétereként megadhatjuk a táblázat oszlopainak számát, és az oszlopok
+igazítását, valamint azt, hogy mely oszlopok között szeretnénk vízszintes
+keretet. A sorokat az
+\inlinecode{\textbackslash\textbackslash}
+parancs választja el egymástól, míg az oszlopokat az
+\inlinecode{\&}
+karakter. A táblázat vízszintes kereteit a
+\inlinecode{\textbackslash hline}
+paranccsal húzhatjuk meg. A példában egy olyan táblázatot hozunk létre, amely
+három oszlopot tartalmaz. Az első oszlop balra (\texttt{l}), a második középre
+(\texttt{c}), a harmadik pedig jobbra (\texttt{r}) igazított. Az első oszlop
+előtt, után, és a harmadik oszlop után vízszintes keretet húzunk (\texttt{|}).
+A táblázat első sora felett, és az utolsó sora alatt szimpla, az első sora alatt
+pedig dupla vonalas keretet húzunk.
+
+\begin{minipage}[t]{.5\textwidth}
+	\begin{lstlisting}[language=tex,caption={Táblázatok létrehozása}]
+  \begin{tabular}{|l|c r|}
+    \hline
+    Bal & Közép & Jobb \\ \hline \hline
+    123 & 23    & 3    \\
+    4   & 567   & 6789 \\ \hline
+  \end{tabular}
+\end{lstlisting}
+\end{minipage}\hfill%
+\begin{minipage}[t]{.45\textwidth}
+	\vspace{10pt}
+	\begin{center}
+		\begin{tabular}{|l|c r|}
+			\hline
+			Bal & Közép & Jobb \\ \hline \hline
+			123 & 23    & 3    \\
+			4   & 567   & 6789 \\ \hline
+		\end{tabular}
+	\end{center}
+\end{minipage}
+
+Ábrákat az \texttt{includegraphics} parancs segítségével illeszthetünk.
+Opcionális paraméterként megadhatjuk a kép méreteit, tájolását, és még sok
+mást.
+
+\begin{minipage}[t]{.5\textwidth}
+	\begin{lstlisting}[language=tex,caption={Ábrák beillesztése}]
+  % \usepackage{graphicx} (preambulumban)
+  \includegraphics[width=4cm]{./figures/bme_logo.pdf}
+\end{lstlisting}
+\end{minipage}\hfill%
+\begin{minipage}[t]{.45\textwidth}
+	\vspace{1pt}
+	\begin{center}
+		\includegraphics[width=4cm]{./figures/bme_logo.pdf}
+	\end{center}
+\end{minipage}
+
+% ------------------------------------------------------------------------------
+\subsection{A \LaTeX{} ökoszisztéma}
+% ------------------------------------------------------------------------------
+
+% CTAN
+Előfordulhat, hogy dokumentumszerkesztés során olyan funkcionalitásra van
+szükségünk, amelyet a \LaTeX{} alapértelmezetten nem biztosít. Ilyenkor a
+\LaTeX{} -- ahogyan azt korábban is tárgyaltuk -- csomagok segítségével
+bővíthetjük a rendszer funkcionalitását. A \textit{CTAN} (Comprenhensive \TeX{}
+Archive Network) egy olyan központi tároló, ahol nemcsak maguk a \TeX{} és
+\LaTeX{} csomagok, hanem azok dokumentációja is megtalálható. A \textit{CTAN}
+a \TeX közösségben emiatt kulcsfontosságú szerepet tölt be, hiszen csomagok,
+bővítmények, betűtípusok és egyéb tartalmak széles tárházát biztosítja a
+felhasználók számára. Az archívum rendszeres látogatása mind kezdőknek, mind
+haladóknak létfontosságú forrásként szolgál, hiszen nagymértékben megkönnyíti
+a \LaTeX{}-kel kapcsolatos eszközök széles választékához való hozzáférést.
+A hálózatot önkéntesek tartják fenn, tartalma pedig a világ számos pontján
+lévő szerveren tükrözve van, ezzel garantálva a gyors és megbízható
+elérhetőséget. \cite{ctan_homepage}
+
+% ------------------------------------------------------------------------------
+\section{Saját osztályok és csomagok}
+% ------------------------------------------------------------------------------
+
+% General advantages of using custom classes and packages
+Az általam készített oktatási anyagokhoz saját osztályokat és csomagokat
+készítettem. Nézzük meg először, hogy fejlesztés és megjelenés szempontjából
+miért is volt előnyös ez a megoldás.
+
+Saját készítésű forrásokat használva a dokumentumok felett teljes kontrollt
+tudunk elérni. Mivel a parancsokat és környezeteket én definiáltam, ezért
+a fejlesztés során egyrészt teljes szabadságot élveztem, másrészt pedig
+forrás ismeretében a kimenet pontosan megjósolható volt. Ezzel a megközelítéssel
+a dokumentumok fejlesztése és szerkesztése is sokkal egyszerűbbé vált.
+
+Egy másik nagy előny, hogy ezáltal a dokumentumok megjelenése is egységes lett.
+Gondoljunk csak bele, hogy ha a parancsokat minden egyes dokumentumban külön
+definiáltam volna, akkor az nemcsak drasztikusan megnövelte volna a projekt
+méretét, és csökkentette volna az átláthatóságát, de könnyen inkonzisztenciához
+is vezethezett volna. Ha például a betűtípust szeretnénk megváltoztatni, akkor
+azt nem csak a jelenleg szerkesztett dokumentumban, hanem az összes többiben
+is meg kellett volna tennünk. Ha egy környezet viselkedését szerettük volna
+megváltoztatni -- például újabb argumentumot adni hozzá -- akkor az összes
+dokumentumban meg kellett volna keresni az adott környezet definícióját, és
+meg kellett volna változtatni azt. Ezzel szemben a saját osztályok és csomagok
+használatával a fejlesztés sokkal egyszerűbbé vált, hiszen amennyiben
+változtatni szerettünk volna valamit, akkor csak az osztályt vagy a csomagot
+kellett módosítani, és a változás az összes dokumentumra kiterjedt.
+
+% ------------------------------------------------------------------------------
+\subsection{Általános beállítások, egyszerű parancsok}
+% ------------------------------------------------------------------------------
+
+% General settings
+A dokumentumok megjelenésének egységesítése érdekében különböző általános
+beállítást vezettem be. Definiálva lett például a dokumentumok betűtípusa,
+betűmérete. Különböző csomagokat hívtam meg, amelyeket az összes dokumentumban
+használtam, így például a matematikai képletekhez szükséges csomagokat, a
+grafikus elemeket kezelő csomagokat, és még sok mást.
+
+% Simple commands
+Létrehoztam alapvető parancsokat. Létrehoztam az általunk használatos
+matematikai operátorokhoz tartozó parancsokat, definiáltam a gyakran használt
+konstansokhoz tartozó szimbólumokat, és még sok egyszerű matematikai parancsot.
+A skaláris szorzáshoz tartozó parancson keresztül megmutatom, hogy hogyan
+lehet saját parancsokat definiálni. A célunk az, hogy egy olyan parancsot
+hozzunk létre, amelynek két argumentuma van, és az alábbi megjelenést
+eredményezi:
+\[
+	< a \, ; \, b >
+	\text.
+\]
+Egy ilyen parancs létrehozása a \texttt{newcommand} parancs használatával
+érhető el, melynek első paramétere a parancs neve, a következő -- opcionális --
+paramétere a parancs argumentumainak száma, az utolsó pedig maga a parancs
+kifejtése, ahol az argumentumokat \texttt{\#1}, \texttt{\#2}, \ldots,
+\texttt{\#n} formában érhetjük el. Fontos, hogy a parancs neve csak betűket
+tartalmazhat, valamint maximálisan kilenc paramétert várhat. A megvalósítás
+a következőképpen néz ki:
+
+\begin{lstlisting}[language=tex,caption={Skaláris szorzás parancs definíciója]}]
+  % \newcommand{<parancs neve>}[<argumentumok száma>]{<parancs definíciója>}
+  \newcommand{\scalar}[2]{< #1 \, ; \, #2 >}
+\end{lstlisting}
+
+A parancs neve \texttt{scalar}, az argumentumok száma pedig kettő. Amennyiben
+a parancsot használni szeretnénk, akkor azt a beépített parancsokhoz hasonlóan
+tehetjük meg. A parancs neve után a parancs argumentumait kapcsos zárójelek
+közé írjuk, vesszővel elválasztva. A parancs használata a következőképpen
+néz ki:
+
+\begin{lstlisting}[language=tex,caption={Skaláris szorzás parancs használata}]
+  \scalar{a}{b}
+\end{lstlisting}
+
+Most nézzünk meg egy bonyolultabb példát. Definiáljunk egy megjegyzés
+környezetet, célunk az alábbi kinézet elérése:
+
+\begin{note}[Opcionális cím]
+	\noindent Ez egy megjegyzés.
+\end{note}
+\begin{note}
+	\noindent Ez egy másik megjegyzés, cím nélkül.
+\end{note}
+
+A kinézet eléréséhez az \texttt{mdframed} csomagot használtam, amely
+segítségével definiáltam egy új, saját környezetet:
+
+\begin{lstlisting}[language=tex,caption={Saát megjegyzés környezet}]
+  \usepackage{mdframed}
+  \newmdenv[
+    backgroundcolor=yellow-base!5,%  Háttérszín (kevert szín)
+    linecolor=blue-base,%            Keret színe
+    linewidth=1mm,%                  Keret vastagsága
+    topline=false,%                  Felső vonal nincs
+    rightline=false,%                Alsó vonal nincs
+    bottomline=false,%               Jobb oldali vonal nincs
+    skipabove=0.25em,%               Felső margó
+    skipbelow=0.25em,%               Alsó margó
+  ]{myframe}
+\end{lstlisting}
+
+Ezután következett a környezet definiálása. A \texttt{newenvironment} parancs
+első paramétere a környezet neve, a következő -- opcionális -- paramétere a
+környezet argumentumainak száma, mely után megadhatjuk a környezet opcionális
+paramétereinek alapértelmezett értékeit. Az utolsó két paraméter pedig a
+környezet kezdő és záró parancsainak definíciója. Mivel szeretnénk, hogy a
+megjegyzések sorszámozva is legyenek, ezért egy számlálot is létre kellett
+hoznunk. A megvalósítás a következőképpen néz ki:
+
+\begin{lstlisting}[language=tex,caption={Megjegyzés környezet}]
+  % \newenvironment
+  %   {<környezet neve>}
+  %   [<argumentumok száma>]
+  %   [<opcionális paraméterek>]
+  %   {<kezdő parancs>}
+  %   {<záró parancs>}
+  \newcounter{note}
+  \makeatletter
+  \newenvironment{note}[1][\@nil]{%
+    \refstepcounter{note}%
+    \begin{myframe}\textbf{Megjegyzés \thenote.}%
+      \def\tmp{#1}%
+      \ifx\tmp\@nnil\else%
+        \hspace{.5em}[\;#1\;]
+      \fi\par%
+  }{\end{myframe}}
+  \makeatother
+\end{lstlisting}
+
+Először is létrehoztam egy számlálót, amely a megjegyzések sorszámát tartja
+számon. Ezután egy eddig nem látott paranccsal találkozhatunk: a környezet
+létrehozása előtt a
+\inlinecode{\textbackslash makeatletter},
+utána pedig a
+\inlinecode{\textbackslash makeatother}
+parancsot adtuk ki.
+
+Hogy mit is csinál ez? A fejlesztők gyakran \texttt{@}
+karaktereket raknak az olyan parancsok, környezetek nevébe, amelyeket nem
+közvetlen használatra vannak kitalálva. A \LaTeX{} alapvetően ezt a karaktert
+nem betűként kezeli, ami azt jelenti, hogy az ilyen makrók alapértelmezett
+üzemmódban nem használhatóak. A
+\inlinecode{\textbackslash makeatletter}
+paranccsal a \LaTeX{} fordító számára azt jelezzük, hogy az \texttt{@} karaktert
+betűként kezelje. Ezáltal az ilyen karaktereket tartalmazó parancsokat is
+elérhetjük. A környezet létrehozása után érdemes a
+\inlinecode{\textbackslash makeatother}
+parancsot kiadni, hogy a \LaTeX{} fordító ismét az alapértelmezett üzemmódba
+kapcsoljon vissza.
+
+Térjünk vissza a környezet létrehozásához. A környezetnek egy opcionális
+paramétert adtunk meg, amely a megjegyzés címét tartalmazza. Ennek az
+alapértelmezett értéke
+\inlinecode{\textbackslash @nil}.
+A környezet kezdő parancsában először megnöveltük a számláló értéket.
+Utána a korábban definiált keret környezetet hívtuk meg. Ebben először
+kiírtuk a megjegyzés sorszámát. Utána egy ideiglenes változóba elmentjük
+a kapott argumentumot, amely -- akármennyire is redundánsnak tűnik --  a későbbi
+elágazás miatt egy nem elhagyható lépés. Mivel amennyiben nincs cím megadva,
+akkor a címet körül vevő kapcsos zárójeleket sem szeretnénk megjeleníteni,
+ezért egy elágazással ellenőrizzük, hogy a kapott cím \texttt{\textbackslash
+	@nil}-e. Amennyiben nem, akkor 0,5 em hely kihagyása után
+kiírjuk a címet. A környezet záró parancsában pedig a korábban definiált
+keret környezet záró parancsát hívtuk meg.
+
+% ------------------------------------------------------------------------------
+\subsection{A feladat környezet}
+% ------------------------------------------------------------------------------
+
+% The exercise environment
+A legbonyolultabb kihívás a feladat (\texttt{exercise}) környezet létrehozása
+volt. Az ezzel kapcsolatos elvárások a következőek voltak:
+\begin{itemize}
+	\item Legyen egy opcionális, és egy kötelező paramétere. Utóbbi a feladat
+	      címe. Előbbi pedig egy olyan hosszmérték amennyit ki szeretnénk hagyni,
+	      amennyiben a megoldás nincs kiiratva. Ennek alapértelmezett értéke
+	      5 cm.
+
+	      % \item A feladatok számozva legyenek.
+
+	\item Legyen egy külön csomagban definiálva, mely csomagnak opcionálisan
+	      paramétereket adhatunk meg.
+	      \begin{itemize}
+		      \item Amennyiben a \texttt{print-solutions} paramétert megadjuk,
+		            akkor a feladatok megoldásai is megjelennek.
+
+		      \item Ha a \texttt{keep-space} paramétert adjuk meg, akkor
+		            a feladatok után az általunk megadott hosszúságú, vagy
+		            alapértelmezetten 5 cm hosszú üres hely marad.
+
+		      \item Ez a két opció együtt nem használható. Amennyiben mindkettőt
+		            megadjuk, akkor a \texttt{keep-space} paramétert figyelmen kívül
+		            hagyjuk, a felhasználót pedig egy figyelmeztetéssel
+		            tájékoztatjuk.
+
+		      \item Ha ezek közül egyiket sem adjuk meg, akkor sem üres hely,
+		            sem megoldás nem jelenik meg.
+	      \end{itemize}
+\end{itemize}
+
+A fájl neve legyen \texttt{math-exercise.sty}. Vegyük észre, hogy nem
+\texttt{.tex}, hanem \texttt{.sty} kiterjesztést használtunk. Ennek két előnye
+van. Egyrészt a \LaTeX{} fordító számára ez egy csomagot jelent, és nem egy
+dokumentumot, így a preambulumban a \texttt{usepackage} paranccsal tudjuk
+meghívni. Másrészt pedig mivel ez a fájltípus kifejezetten a \LaTeX{} csomagok
+számára lett kitalálva, ezért például használhatjuk az \texttt{@} karaktert
+a parancsok nevében, anélkül, hogy előrre a \texttt{makeatletter} parancsot
+kellene kiadnunk.
+
+Először meg kell adnunk, hogy milyen \TeX{} formátumot használunk, valamint
+a csomag nevét, esetleg verzióját:
+
+\begin{lstlisting}[language=tex,caption={Csomag információk}]
+  \NeedsTeXFormat{LaTeX2e}
+  \ProvidesPackage{math-exercise}
+\end{lstlisting}
+
+Ezután meghívhatunk különböző csomagokat, amelyekre szükségünk van. Figyeljük
+meg, hogy ezekez nem a \texttt{usepackage}, hanem a \texttt{RequirePackage}
+parancca hívjuk meg. Ennek leginkább formális jelentősége van, hiszen a két
+parancs között nincs funkcionális különbség. Az egyetlen differencia, hogy
+a \texttt{usepackage} parancs nem használható a dokumentum osztályának megadása
+előtt.
+
+\begin{lstlisting}[language=tex,caption={Csomagok meghívása}]
+  \RequirePackage{amsmath}                   % Matematika környezetek
+  \RequirePackage{xargs,xstring}             % Argumentumok kezelése
+  \RequirePackage{tikz}                      % Ábrák
+  \usetikzlibrary{patterns,patterns.meta}    % Mintázatok
+  \RequirePackage[many]{tcolorbox}           % Színes dobozok
+  \tcbuselibrary{breakable}                  % A dobozok több oldalasak is lehetnek
+\end{lstlisting}
+
+Ezután a csomag argumentumait fogjuk feldolgozni. Kettő fajta opciót adhatunk
+meg, ezeknek létrehozunk egy-egy boolean tárolót a \texttt{newif} parancs
+segítségével. Ellenőrizzük, hogy a két opció közül csak az egyiket adjuk meg,
+ha mindkettőt megadjuk, akkor figyelmeztetjük a felhasználót, és a
+\texttt{print-solutions} opciót választjuk.
+
+\begin{lstlisting}[language=tex,caption={Opciók feldolgozása}]
+  % Tárolók létrehozása
+  \newif\ifprint@@sols
+  \newif\ifkeep@@space
+
+  % Opciók feldolgozása
+  \DeclareOption{print-solutions}{\print@@solstrue}
+  \DeclareOption{keep-space}{%
+    % Ha a 'print-solutions' opciót is megadtuk, akkor figyelmeztetünk
+    \ifprint@@sols%
+      \PackageWarning{math-exercise}%
+      {'keep-space' ignored, because it cannot be used together with 'print-solutions'}%
+    % Ha nem, akkor beállítjuk a 'keep-space' opciót
+    \else%
+      \keep@@spacetrue%
+    \fi%
+  }
+
+  % Opciók feldolgozásának vége
+  \ProcessOptions\relax
+\end{lstlisting}
+
+Új parancsot itt is a \texttt{newcommand}, új környezetet pedig a
+\texttt{newenvironment} paranccsal hozhatunk létre. A feladat környezet
+létrehozásához az \texttt{exercise} elnevezést használtam. Létrehoztam továbbá
+egy \texttt{exsol} parancsot, amely a feladat megoldását tartalmazza. Ez
+csak a feladat környezetben definiálható, és csak akkor fog megjelenni,
+amennyiben a \texttt{print-solutions} opciót megadtuk.
+
+Először a paraméterekhez tartozó színeket és mintázatokat definiáltam.
+Amennyiben a \texttt{keep-space} opció aktív, akkor a kihagyott üres hely
+ponthálós hátteret kap. Egyébként pedig üresen hagyjuk a hátteret.
+
+\begin{lstlisting}[language=tex,caption={Konstansok definiálása}]
+  \def\@@cb{yellow-base!5}%
+  \def\@@cf{blue-base}%
+  \def\@@ct{white}
+
+  % Üres hely mintázata, amennyiben a 'keep-space' opció aktív
+  \ifkeep@@space%
+    \def\@@ul{%
+      \begin{tcbclipinterior}
+        \fill[
+        pattern={%
+          Dots[distance=5mm, angle=90],%
+        },%
+        pattern color=gray,
+        shift={(interior.north west)},
+        ] (interior.south west) rectangle (segmentation.east);
+      \end{tcbclipinterior}
+    }
+  \else%
+    \def\@@ul{}
+  \fi%
+\end{lstlisting}
+
+Most már minden adott volt, hogy definiáljuk a feladat környezetet. Létrehoztam
+egy olyan tárolót, amely jelzi, hogy a \texttt{exsol} parancs használható-e.
+Ez azért fontos, mert a \texttt{exsol} parancs csak a \texttt{exercise}
+környezetben használható. Ezen kívül egy számolóra is szükség van, hiszen a
+megjegyzésekhez hasonlóan a feladatokat is szeretnénk sorszámozni.
+
+\begin{lstlisting}[language=tex,caption={Az \texttt{exercise} környezet}]
+  \newif\ifinside@@exercise%              % 'exsol' parancs használható-e?
+  \newcounter{exercise}%                  % Feladatok számozása
+
+  \newenvironment{exercise}[1]{%
+    \inside@@exercisetrue%                % 'exsol' parancs használható
+    \refstepcounter{exercise}%            % számláló inkrementálása
+    \begin{tcolorbox}[%                   % Feladat doboz eleje
+      colback=\@@cb,%                     % Háttérszín
+      colframe=\@@cf,%                    % Keret színe
+      coltitle=\@@ct,%                    % Cím színe
+      breakable,%                         % Több oldalas
+      title={\#\theexercise . #1},%       % Cím
+      enhanced,                           % Bővített módban
+      underlay={\@@ul},                   % Üres hely mintázata
+    ]%
+  }%
+	{%
+    \inside@@exercisefalse%               % 'exsol' parancs nem használható
+    \end{tcolorbox}%                      % Feladat doboz vége
+  }%
+\end{lstlisting}
+
+Már csak a \texttt{exsol} parancs definiálása van hátra. A parancs első
+paramétere opcionális, a kihagyott távolságot tartalmazza. Az ezt követő
+paraméter pedig maga a megoldás.
+
+\begin{lstlisting}[language=tex,caption={Az \texttt{exsol} parancs}]
+  \newcommandx{\exsol}[2][1=5cm]{%
+    \ifinside@@exercise%                  % Ha az 'exercise' környezetben vagyunk
+      \ifprint@@sols%                     % Ha a 'print-solutions' opció aktív
+        \tcblower%                        % Elválasztó vonal
+        #2%                               % Megoldás kiiírása
+      \fi%
+      \ifkeep@@space%                     % Ha a 'keep-space' opció aktív
+        \IfInteger{#1}{%                  % Ha a paraméter egész szám
+          \ifnum#1>0%                     % Ha a paraméter pozitív
+            \tcblower%                    % Elválasztó vonal
+            \vspace{#1}%                  % Üres hely
+          \fi
+        }{%
+          \tcblower%                      % Elválasztó vonal
+          \vspace*{#1}%                   % Üres hely
+        }%
+      \fi%
+    \else%                                % Ha nem az 'exercise' környezetben vagyunk
+      \PackageError{math-exercise}%
+      {'exsol' can only be used in the exercise environment}%
+    \fi%
+  }
+\end{lstlisting}
+
+\begin{minipage}[t]{.33\textwidth}
+	\begin{lstlisting}[language=tex,caption={Csomag használata}]
+  \usepackage[
+    print-solutions
+  ]{math-exercise}
+
+
+
+
+
+  \usepackage[
+    keep-space
+  ]{math-exercise}
+
+
+
+
+
+
+  \usepackage{exercise}
+
+
+  \end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}[t]{.63\textwidth}
+	\begin{exercise}{Megoldással}
+		Mennyi $2+2$?
+
+		\exsol{%
+			\vspace{-8mm}
+			\[
+				2 + 2 = 4
+			\]
+			\vspace{-10mm}
+		}
+	\end{exercise}
+	\vspace{-1.5mm}
+
+	\makeatletter
+	\print@@solsfalse
+	\keep@@spacetrue
+	\begin{exercise}{Helykihagyással}
+		Mennyi $2+2$?
+
+		\exsol[11mm]{}
+	\end{exercise}
+	\vspace{-1.5mm}
+
+	\keep@@spacefalse
+	\begin{exercise}{Megoldás és helykihagyás nélkül}
+		Mennyi $2+2$?
+	\end{exercise}
+	\makeatother
+\end{minipage}
+
+
+
+% ------------------------------------------------------------------------------
+\subsection{Az fájltípusok és a hozzájuk tartozó környezetek}
+% ------------------------------------------------------------------------------
