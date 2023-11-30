@@ -4,31 +4,45 @@
 \chapter{A fejlesztői környezet bemutatása}
 % ------------------------------------------------------------------------------
 
-Ebben a fejezetben be fogom mutatni, hogy milyen környezetben dolgoztam a
-fejlesztés során. Kitérek arra, hogy a forrásfájlokat milyen környezetben
-tároltam. Megmutatom, hogy milyen szkripteket fejlesztettem, melyek
-elősegítették a hibák kiküszöbölését, a dokumentumok fordítását és a kódbázis
-bővítését is.
+% Small introduction
+Az oktatási anyagok bemutatása után térjünk át arra, hogy a projekt készítése
+során milyen fejlesztői környezetben dolgoztam. Kitérek arra, hogy a
+forrásfájlokat milyen környezetben tároltam, és hogy ez miért volt
+elengedhetetlen egy ilyen nagy volumenű projekt menedzselése és
+továbbfejleszthetősége érdekében. Ezután megmutatom, hogy milyen szkripteket
+készítettem a hibák kiküszöbölése, a dokumentumok egyszerű fordítása érdekében,
+valamint arra, hogy ezek a programok hogyan működnek a gyakorlatban.
+
+% Ebben a fejezetben be fogom mutatni, hogy milyen környezetben dolgoztam a
+% fejlesztés során. Kitérek arra, hogy a forrásfájlokat milyen környezetben
+% tároltam. Megmutatom, hogy milyen szkripteket fejlesztettem, melyek
+% elősegítették a hibák kiküszöbölését, a dokumentumok fordítását és a kódbázis
+% bővítését is.
 
 % ------------------------------------------------------------------------------
 \section{Git: a verziókezelő rendszer}
 % ------------------------------------------------------------------------------
 
-A szoftverfejlsztés világában a \textit{git} rendszer egyre inkább alapvető
+% Git in general
+A szoftverfejlesztés világában a \textit{git} rendszer egyre inkább alapvető
 eszközzé válik. A \textit{git} nemcsak egy egyszerű verziókezelő rendszer,
 hanem egy olyan eszköz is, amely újradefiniálja a fejlesztők munkamódszereit,
 hiszen jelentős előnyöket nyújt a projektmenedzsment és a csapatmunka terén.
 
 % ------------------------------------------------------------------------------
-\subsection{Út a git megjeleéséig}
+\subsection{Út a git megjelenéséig}
 % ------------------------------------------------------------------------------
 
-Mi is az a verziókezelés, és miért is olyan fontos? A verziókezelés egy olyan
-rendszer, amely lehetővé teszi, hogy egy adott dokumentum, vagy fájl
-változásainak időben nyomon követését. Ezt a módszert általában szoftverek
-forrásfájljainak nyilvántartására használják, de valójában egy számítógépen
-található bármilyen típusú fájlra alkalmazható.
+% Version control in general
+Mi is az a verziókezelés, és miért is olyan fontos egy ilyen projekt esetén?
+A verziókezelés egy olyan rendszer, amely lehetővé teszi, hogy egy adott
+dokumentum, vagy fájl változásainak időben nyomon követését. Ezt a módszert
+általában szoftverek forrásfájljainak nyilvántartására használják, de valójában
+egy számítógépen található bármilyen típusú fájlra alkalmazható. Mivel jelen
+esetben a fejlesztés során a forrásfájlok egyszerű szövegfájlok, ezért a
+\textit{git} rendkívül hatékony eszköznek bizonyul.
 
+% Copy paste
 Sok embernél a verziókezelés abban merül ki, hogy a fájlokat egy másik
 könyvtárba másolják, és a fájlok nevéhez egy sorszámot fűznek. Ez a megközelítés
 rendkívül elterjedt, de sajnos nem túl hatékony, és még hibaérzékeny is. Könnyű
@@ -68,19 +82,20 @@ vagy éppen egy másik fejlesztő munkáját írjuk felül.
 
 		\draw (F) -- (V3) -- (V2) -- (V1);
 	\end{tikzpicture}
-	\caption{Helyi verziókezelő renszerek felépítése \cite{git_scm_1.1}}
-	% \label{fog:fig:local-vcs}
+	\caption{Helyi verziókezelő rendszerek felépítése \cite{git_scm_1.1}}
+	\label{fog:fig:local-vcs}
 \end{figure}
 
+% Local version control
 Ennek a problémának az orvosolására a programozók már régen kifejlesztettek
 helyi verziókezelő rendszereket, amelyek mögött egy egyszerű adatbázis állt.
 Az egyik legnépszerűbb ilyen eszköz az \textit{RCS} (Revision Control System --
-Revíziós Ellenőrzési Rendszer) volt, amely a mai napig számtalan Unix rendszeren
-elérhető. Az RCS egy egyszerű rendszer, amely a fájlok mentéséhez \textit{diff}
-fájlokat használ. A \textit{diff} fájlokban csak azok a sorok szerepelnek,
-amelyek változtak, így ezen fájlok mérete kicsi marad. \cite{rcs_documentation}
-
-% https://cvs.nongnu.org
+Revíziós Ellenőrzési Rendszer) volt, amely a mai napig számtalan \textit{Unix}
+rendszeren elérhető. Az \textit{RCS} egy egyszerű rendszer, amely a fájlok
+mentéséhez \textit{diff} fájlokat használ. A \textit{diff} fájlokban csak azok
+a sorok szerepelnek, amelyek változtak, így ezen fájlok mérete kicsi marad.
+\cite{rcs_documentation} Egy ilyen rendszer felépítése a
+\ref{fog:fig:local-vcs}. ábrán látható.
 
 \begin{figure}[htb]
 	\centering
@@ -123,9 +138,10 @@ amelyek változtak, így ezen fájlok mérete kicsi marad. \cite{rcs_documentati
 		\draw [-latex] (0,-.5) -- (F2.east);
 	\end{tikzpicture}
 	\caption{Centralizált verziókezelő renszerek felépítése \cite{git_scm_1.1}}
-	% \label{fog:fig:local-vcs}
+	\label{fig:centralized-vcs}
 \end{figure}
 
+% Centralized version control
 Az \textit{RCS} egy egyszerű, és hatékony rendszernek bizonyult, viszont volt
 egy nagyon fontos hiányossága. A rendszer nem támogatta a többfejlesztői
 munkát. Ennek a problémának az orvosolására fejlesztették ki a centralizált
@@ -137,6 +153,7 @@ rendszerekkel szemben, viszont van egy súlyos hibája, amely a központi
 szerverben rejlik. Ha a szerver egy pár órára leáll, akkor senki sem tud
 dolgozni. Ha a szerver a fájlokat tároló adathordozóval együtt elromlik,
 az az adatok és történetük elvesztését jelenti. \cite{cvs_documentation}
+Egy ilyen rendszer felépítése a \ref{fig:centralized-vcs}. ábrán látható.
 
 \begin{figure}[htb]
 	\centering
@@ -184,11 +201,12 @@ az az adatok és történetük elvesztését jelenti. \cite{cvs_documentation}
 		\draw [latex-latex] (1.75,-5) -- (1,-3.5);
 	\end{tikzpicture}
 	\caption{Centralizált verziókezelő renszerek felépítése \cite{git_scm_1.1}}
-	% \label{fog:fig:local-vcs}
+	\label{fig:distributed-vcs}
 \end{figure}
 
+% Distributed version control
 Itt jönnek képbe a elosztott verziókezelő rendszerek, mint pl. a \textit{git}.
-Ilyen rendszereknél a felhasználók nemcsak a fájlok legfrisebb verzióját
+Ilyen rendszereknél a felhasználók nemcsak a fájlok legfrissebb verzióját
 birtokolják, hanem teljes mértékben lemásolják az összes adatot, beleértve
 a fájlokat, és azok teljes történetét is. Ez a megközelítés sokkal
 biztonságosabb, mint a centralizált rendszereké, hiszen ha egy szerver
@@ -196,18 +214,20 @@ elromlik, akkor a fájlok másolatai még mindig elérhetőek. Ráadásul a legt
 ilyen rendszer jól kezeli, ha egy projekten belül több tárolóhelyet szeretnénk
 használni. Ez a kedvező tulajdonság olyan munkafolyamatokat is lehetővé
 tesz, amelyek centralizált rendszerekben nem megoldhatóak, például
-hierarchikus modellek alkalmazását.\cite{git_scm_1.1}
+hierarchikus modellek alkalmazását. \cite{git_scm_1.1} Egy ilyen verziókezelő
+rendszer modellje a \ref{fig:distributed-vcs}. ábrán látható.
 
 % ------------------------------------------------------------------------------
 \subsection{A git rövid története}
 % ------------------------------------------------------------------------------
 
+% Git short history
 A \textit{Linux kernel} egy nagyszabású, nyílt forráskódú projet. A kezdeti
 időszakban a szoftver módosításait javítások és archivált fájlok formájában
-adták tovább. 2002-ben a \textit{Linux kernel projekt} egy \textit{BitKeeper}
+terjesztették. 2002-ben a \textit{Linux kernel projekt} egy \textit{BitKeeper}
 nevű, elosztott verziókezelő rendszerre tért át. 2005-ben a \textit{Linux}
 fejlesztői és a \textit{BitKeeper} mögött álló cég közötti kapcsolat egyre
-inkább leépült, a \textit{BitKeeper} szoftver ingyenes használata pedig
+inkább leépült, a \textit{BitKeeper} szoftver ingyenes hozzáférése pedig
 megszűnt. Ekkor a \textit{Linux} fejlesztői úgy döntöttek, hogy saját
 verziókezelő rendszert fejlesztenek, amely a \textit{BitKeeper} által
 használt adatmodellt követi. A projektet Linus Torvalds vezette, és a
@@ -228,6 +248,7 @@ lett. \cite{git_scm_1.2}
 \subsection{Az alapok}
 % ------------------------------------------------------------------------------
 
+% Git basics
 Egy \textit{git} alapú verziókezelő rendszer használata nagyon egyszerű.
 Ha egy már meglévő projektet szeretnénk egy \textit{git} alapú rendszerbe
 helyezni, akkor a következő parancsot kell kiadnunk:
@@ -255,7 +276,7 @@ pillanatképbe bekerülnek. Ahhoz, hogy egy pillanatképet készítsünk a
 projekt állapotáról, a következő parancsot kell kiadnunk:
 
 \begin{lstlisting}[caption={Pillanatkép mentése},language=sh]
-  $ git commit -m "A commit üzenet"
+  $ git commit -m <A commit üzenet>
 \end{lstlisting}
 
 A parancs hatására a \textit{git} létrehoz egy pillanatképet a projekt
@@ -304,12 +325,13 @@ Az előbb leírt folyamatot a \ref{fig:git-lifecycle} ábra szemlélteti.
 		node[left=-4mm, white, pos=0] {Pillanatkép készítése};
 	\end{tikzpicture}
 	\caption{%
-		A fájlok életciklusa\\
-		Untracked -- Történet nélküli, újonnan létrehozott fájl\\
-		Unmodified -- A legutolsó pillanatkép óta nem módosított fájl\\
-		Modified -- A legutolsó pillanatkép óta módosított fájl\\
-		Staged -- Módosított, vagy újonnan létrehozott fájl,\\
-		\phantom{Staged -- }amely a következő pillanatképbe bekerül \cite{git_scm_2.2}%
+		A fájlok életciklusa
+		% Untracked -- Történet nélküli, újonnan létrehozott fájl\\
+		% Unmodified -- A legutolsó pillanatkép óta nem módosított fájl\\
+		% Modified -- A legutolsó pillanatkép óta módosított fájl\\
+		% Staged -- Módosított, vagy újonnan létrehozott fájl,\\
+		% \phantom{Staged -- }amely a következő pillanatképbe bekerül 
+		\cite{git_scm_2.2}%
 	}
 	\label{fig:git-lifecycle}
 \end{figure}
@@ -322,7 +344,7 @@ hanem a következő parancsot használják:
 \end{lstlisting}
 
 A parancs hatására az összes újonnan létrehozott, vagy az utolsó pillanatkép
-óta módosított fájl \texttt{staged} állapotba kerül.  Ilyen parancsok
+óta módosított fájl \texttt{staged} állapotba kerül. Ilyen parancsok
 használata esetén nagyon hasznos tud lenni egy \texttt{.gitignore} nevű fájl.
 Ez azoknak a fájloknak vagy almappáknak a listáját tartalmazza, amelyeket nem
 szeretnénk, hogy a \textit{git} nyomon kövessen. Ilyen fájlok lehetnek pl. a
@@ -332,7 +354,7 @@ fordítóprogramok által generált fájlok és mappák (c program esetén a fut
 operációs rendszer által generált rejtett fájlok (\textit{MacOS}-en a
 \texttt{.DS\_Store},  \textit{Windows}-on a \texttt{Thumbs.db} fájlok).
 Az én projektemben ez a fájl majdnem 500 sor hosszú, a legfontosabb elemei
-a következők:
+a következőek:
 \begin{lstlisting}[caption={A projektemben található \texttt{.gitignore} fájl legfontosabb részei},language=sh]
   # Projekt specifikus
   build     # A latexmk által generált fájlok
@@ -401,13 +423,13 @@ előnnyel rendelkezik, amelyek közül a legfontosabbak a következőek:
 	\item \textbf{Kompatibilitás és teljesítmény}:
 	      A \textit{TypeScript} nyelv kódját a fordító program \textit{JavaScript}
 	      kóddá fordítja, így a nyelvvel írt programok bármelyik
-	      \textit{JavaScript} futtatókörnyezetben futtathatóak, teljesítményük
+	      \textit{JavaScript} környezetben futtathatóak, teljesítményük
 	      pedig azonos a \textit{JavaScript} nyelvű programokéval. Ráadásul egy
 	      már meglévő \textit{JavaScript}-tel írt projekthez fokozatosan hozzá
 	      lehet adni a \textit{TypeScript} nyelvű fájlokat, nem kell az egészet
 	      újraírni.
 
-	\item \textbf{Kíváló dokumentáció és támogatás}:
+	\item \textbf{Kiváló dokumentáció és támogatás}:
 	      A programozók részére rendkívül fontos, hogy egy nyelv jól dokumentált
 	      legyen. A \textit{TypeScript} nyelv fejlesztői a hivatalos dokumentáció
 	      \cite{TS_Microsoft} mellett a \textit{Mozilla} által fenntartott
@@ -416,33 +438,277 @@ előnnyel rendelkezik, amelyek közül a legfontosabbak a következőek:
 \end{enumerate}
 
 % ------------------------------------------------------------------------------
-\subsection{A szkriptek múködése}
+\subsection{A szkriptek működése}
 % ------------------------------------------------------------------------------
 
+% General description
 A szkripteknek két fő feladata volt a fejlesztés során. Az első a dokumentumok
 validálása, a második pedig a dokumentumok fordítása és rendszerezése volt.
-Az első feladatom a projektstrukúra megtervezése volt.
+
+% ------------------------------------------------------------------------------
+\subsubsection{A projektstruktúra megtervezése}
+% ------------------------------------------------------------------------------
+
+% Folder structure
+Első lépés a projektstruktúra megtervezése volt. A projekt gyökerében nyolc
+fontos mappa, valamint konfigurációs fájlok találhatóak. Előbbiek közül öt
+könyvtár \LaTeX, egy \textit{git}, egy \textit{TypeScript}, egy pedig
+\textit{Github} specifikus volt. A konfigurációs fájlok egyrészt formázási
+szabályokat, másrészt fordítási beállításokat tartalmaztak. Előbbiek használata
+egy verziókezelő rendszerben nagyon fontos, hiszen így biztosítható, hogy minden
+fejlesztő ugyanolyan formázási szabályokkal szerkesztett dokumentumokat
+produkáljon. Ez \LaTeX esetében az \texttt{indentconfig.yaml},
+\textit{TypeScript} esetében pedig a \texttt{.prettierrc} fájlt takarja.
+A forditási beállításokat tartalmazó fájlok pedig a \texttt{.latexmkrc} és a
+\texttt{tsconfig.json} fájlok voltak. A mappastruktúra a következőképpen
+nézett ki:
+
 \begin{lstlisting}
   │
-  ├── .github  -- Workflow files
-  │
+  ├── .git     -- git specifikus fájlok
+  ├── .github  -- github specifikus fájlok
   ├── scripts  -- Typescript files - only used in workflows
   │
-  ├── config   -- LaTeX class and style files
-  │
-  ├── book     -- LaTeX root files - longer
-  ├── handout  -- LaTeX root files - shorter
-  │
-  ├── exercise -- LaTeX standalone files - single exercises
-  └── graphics -- LaTeX standalone files - single graphics
+  ├── config   -- LaTeX - osztályok és csomagok forrásai
+  ├── book     -- LaTeX - math-book osztállyal készített dokumentumok
+  ├── handout  -- LaTeX - math-handout osztállyal készített dokumentumok
+  ├── exercise -- LaTeX - math-standalone osztállyal készített feladatok
+  └── graphics -- LaTeX - math-standalone osztállyal készített ábrák
 \end{lstlisting}
 
+% ------------------------------------------------------------------------------
+\subsubsection{A fájlkonvenció megtervezése}
+% ------------------------------------------------------------------------------
+
+% File convention
+A mappastruktúra megtervezése után fontos volt további döntéseket hozni.
+Be kellett vezetni egy nevezéktanbeli konvenciót, hogy a szkriptek könnyedén
+megtalálják a dokumentumok forrásfájljait. Ennek érdekében minden mappába,
+ahol úgynevezett gyökér fájlok voltak, egy \texttt{config.yml} fájlt kell
+elhelyezni. Fontos, hogy amennyiben a program egy mappában egy ilyen
+konfigurációs fájlt talál, akkor az alatta lévő mappákban már nem fog
+tovább keresni. Például ha a \texttt{/handout/G3/multivariable} mappában
+található egy \texttt{config.yml} fájl, akkor a program nem fogja
+megvizsgálni a \texttt{/handout/G3/multivariable/1} mappát.
+
+Egy \texttt{config.yml} fájl az alábbi kulcs-érték párokat tartalmazhatja:
+
+\begin{lstlisting}[caption={A konfigurációs fájlok sémájának interfésze \textit{TypeScript} nyelvben}]
+  interface LatexConfig {
+    root_files: {
+      input: string;
+      output?: string;
+      lang?: string;
+    }[];
+    lang?: string | boolean;
+    external_deps?: {
+      [key: string]: string[];
+    };
+  }
+\end{lstlisting}
+
+% root_files
+Az egyetlen kötelező kulcs a \texttt{root\_files}, amely egy olyan objektumokból
+álló tömb, melyek tartalmazzák a gyökér fájlok nevét (\texttt{input}),
+opcionálisan pedig a kimeneti fájl nevét (\texttt{output}), és a dokumentum
+nyelvét is (\texttt{lang}). A többi kulcs opcionális.
+
+% lang
+A \texttt{lang} kulcs alapértelmezett értéke a \texttt{true}, amely azt jelenti,
+hogy amennyiben a dokumentum neve mellett nem adtuk meg a dokumentum nyelvét,
+akkor a szkript a fájl elnevezése alapján fog következtetni annak nyelvére.
+Magyar nyelvű fájlok esetén a \texttt{.hu.tex}, angol nyelvű fájlok esetén
+pedig a \texttt{.en.tex} kiterjesztés jelzi a dokumentum nyelvét. Amennyiben
+a fájl elnevezése nem a konvenció szerint történt, akkor a szkript egy
+figyelmeztető üzenetet fog kiírni, de a fordítást nem fogja megállítani.
+Ha az értéke \texttt{false}, az azt jelenti, hogy az adott mappában található
+fájlok nem nyelv specifikusak. Ez az opció az ábráknál hasznos, hiszen azok
+általában nem tartalmaznak szöveget. Megadhatjuk még a \texttt{lang} kulcsnak
+egy nyelvkódot is. Ekkor a program nem fogja figyelembe venni a fájl nevét,
+hanem minden fájlt a megadott nyelvűnek fogja tekinteni. Ha a dokumentum neve
+mellett a nyelv kulcsot is tartalmazza a \texttt{root\_files} tömbben
+található objektum, akkor az az érték felül fogja írni a \texttt{lang} kulcs
+értékét.
+
+% external_deps
+A \texttt{external\_deps} kulcs pedig egy olyan objektumot tartalmaz, amely
+úgynevezett külső programok csomagjaira mutat. Ezeket a szkript fordítás előtt
+automatikusan telepíti annak érdekében, hogy a fordítás sikeres legyen. Például
+ha megadjuk a \texttt{python} kulcsot, mely értéke:
+\inlinecode{["numpy", "sympy"]},
+akkor a szkript a fordítás előtt automatikusan telepíti a \textit{numpy} és a
+\textit{sympy} csomagokat. Jelen esetben ez a funkció egyedül a
+\textit{python} nyelv esetén érhető el, viszont más nyelvekre is könnyedén
+kiterjeszthető a moduláris felépítésnek köszönhetően. Ez a funkció
+különösen hasznos a \textit{Github Actions} környezetben, melyet a későbbiekben
+fogok bemutatni.
 
 % ------------------------------------------------------------------------------
-\section{A dokumentumok ellenőrzése és fordítása}
+\subsubsection{A szkriptek futtatása és kimenete}
 % ------------------------------------------------------------------------------
 
+A projekt gyökerében található egy \texttt{package.json} fájl, amelyben
+különböző parancsokat definiáltam. Az alábbi opciók állnak rendelkezésre:
+
+\begin{itemize}
+	\item \textbf{\texttt{link}}:
+	      Az osztályok és csomagok linkelése a \texttt{texmf} mappába.
+	      Hatására a projektben szereplő összes \LaTeX{} osztály és csomag
+	      elérhetővé válik a \LaTeX fordítóprogram számára. A gyakorlatban
+	      ez azt jelenti, hogy a \texttt{config} mappában található osztályok
+	      és csomagok hard linkelve -- vagy ha ez nem elérhető akkor másolva --
+	      lesznek a \texttt{texmf} mappába, amely nemcsak a fordítónak,
+	      hanem a fejlesztést segítő \LaTeX{} nyelvi szervernek is
+	      esszenciális. Így a gyári csomagokhoz hasonlóan a saját forrásfájlokban
+	      definiált parancsok is automatikusan felismerésre kerülnek.
+
+	\item \textbf{\texttt{clean}}:
+	      Kitörli a fordítás során keletkezett fájlokat.
+
+	\item \textbf{\texttt{generate}}:
+	      Elkészíti a fordítás során szükséges \texttt{shell scripteket}
+
+	\item \textbf{\texttt{deps:<root|standalone|all>}}:
+	      Installálja a külső függőségeket. A \texttt{root} csak a könyv és
+	      handout osztályokhoz tartozó, a \texttt{standalone} csak a
+	      \texttt{standalone} osztályokhoz tartozó, az \texttt{all} pedig
+	      az összes fájlhoz tartozó dependenciákat telepíti.
+
+	\item \textbf{\texttt{compile:<root|standalone|all>}}:
+	      Elkészíti a dokumentumokat. A \texttt{root} csak a könyv és
+	      handout osztályokhoz tartozó, a \texttt{standalone} csak a
+	      \texttt{standalone} osztályokhoz tartozó, az \texttt{all} pedig
+	      az összes fájlt lefordítja.
+\end{itemize}
+
+A fenti parancsokat a \texttt{pnpm} csomagkezelő segítségével lehet futtatni.
+Ehhez lokálisan telepített \texttt{node} környezet szükséges. Mivel ennek a
+\texttt{pnpm} alapértelmezetten nem része, ezért ennek telepítése is szükséges.
+Ennek installálása, majd a fenti parancsok futtatása a következőképpen történik:
+\begin{lstlisting}[caption={A pnpm telepítése és a parancsok futtatása}]
+  $ npm install -g pnpm         # A pnpm telepítése
+  $ pnpm run <parancs neve>     # A parancsok futtatása
+\end{lstlisting}
+
+% ------------------------------------------------------------------------------
+\section{A projekt publikálása}
+% ------------------------------------------------------------------------------
+
+% General info
+A szkriptek, bár egyértelműen hasznosak voltak a lokális fejlesztés során is,
+hiszen a dokumentumok fordítását és validálását automatizálták, fő céljuk
+mégsem ez volt. A projekt a \textit{Github} nevezetű platformon lett tárolva,
+amely automatizálási lehetőségeket is biztosít. Ezt a lehetőséget kihasználva
+a szkripteket a \textit{Github Actions} környezetben futtattam, ahol
+a dokumentumok fordítása és validálása automatikusan megtörtént. Ennek a
+folyamatát fogom most bemutatni.
+
+
+% ------------------------------------------------------------------------------
+\subsection{A Github}
+% ------------------------------------------------------------------------------
+
+% Github
+A \textit{GitHub} egy -- egy \textit{Microsoft} által fejlesztett --
+verziókezelésre és közös szoftverfejlesztésre tervezett webes platform, amely
+a Linus Torvalds által létrehozott \textit{git} verziókezelő rendszerre épül.
+Rendkívül népszerű a nyílt forráskódú projektek körében, felhasználói bázisa
+2023-ra elérte a 100 millió főt. \cite{github_user_count}
+
+A \textit{Github} rendkívül részletes dokumentációt, oktatási anyagokat és
+fórumokat biztosít a felhasználói számára, ezért használatának elsajátítása
+rendkívül egyszerű, és hasznos tud lenni a fejlesztés során.
 \cite{github_documentation}
 
-% https://docs.github.com/en
-% http://webprogramozas.inf.elte.hu/#!/subjects/alkfejl/git
+% ------------------------------------------------------------------------------
+\subsection{A Github Actions}
+% ------------------------------------------------------------------------------
+
+% Github Actions
+A \textit{Github Actions} egy olyan szolgáltatás a \textit{Github} platformon
+belül, amely a felhasználók számára lehetővé teszi automatizálási folyamatok
+hozzáadását a projektjeikhez. Használata nyílt forráskódú projektek esetén
+korlátlanul ingyenes. Ez a képesség jelentősen kiterjeszti a \textit{Github}
+funkcióit a puszta verzíókezelésen túl.
+
+A \textit{Github Actions} segítségével olyan munkafolyamatok hozhatóak létre,
+mint például a csomagok tesztelése, a hibák észlelése, vagy éppen kód fordítása,
+vagy megjelentetése. Ezeket a folyamatokat úgynevezett \texttt{workflow}
+fájlokban lehet definiálni, melyek a \texttt{/.github/workflows} mappában
+található, \texttt{.yaml} kiterjesztésű fájlok.
+
+Az általam létrehozott \texttt{workflow} fájlnak három fő része van. Az első
+részben a fordításhoz szükséges \texttt{shell szkriptek} generálása történik.
+Ez a folyamat a következőképpen néz ki:
+
+\begin{enumerate}
+	\item \textbf{\texttt{actions/checkout}}:
+	      A projekt klónozása a szerverre.
+
+	\item \textbf{\texttt{actions/setup-node}}:
+	      A \texttt{node} környezetet telepítése.
+
+	\item \textbf{\texttt{pnpm/action-setu}}:
+	      A \texttt{pnpm} csomagkezelő telepítése.
+
+	\item \textbf{\texttt{cache-dirs}}:
+	      A \texttt{pnpm} cache mappája útvonalának eltárolása.
+
+	\item \textbf{\texttt{actions/cache}}:
+	      A \texttt{pnpm} cache mappájának elmentése. Ez a funkció azért hasznos,
+	      mert amennyiben a fejlesztés a \texttt{package.json} fájlban megadott
+	      dependenciák nem változnak, akkor a \texttt{pnpm} nem fogja újra
+	      telepíteni őket, hanem a cache mappából fogja őket betölteni.
+	      Ezzel a munkafolyamattal az inicializálás ideje jelentősen csökken.
+
+	\item \textbf{\texttt{pnpm-deps}}:
+	      Külső dependenciák telepítése. A \texttt{pnpm} csomagkezelő ebben a
+	      lépésben telepíti a \texttt{package.json} fájlban definiált
+	      dependenciákat.
+
+	\item \textbf{\texttt{pnpm-generate}}:
+	      A \texttt{shell szkriptek} generálása. A \texttt{pnpm} csomagkezelő
+	      ebben a lépésben generálja a \texttt{shell szkripteket}, amelyek
+	      a dokumentumok fordításához szükségesek.
+
+	\item \textbf{\texttt{actions/upload-artifact}}:
+	      A generált szkriptek eltárolása annak érdekében, hogy azok a következő
+	      munkafolyamatban is elérhetőek legyenek.
+\end{enumerate}
+
+Miután a fordításhoz szükséges szkriptek sikeresen elkészültek, megkezdődik
+a másik kettő folyamat, amelyek párhuzamosan futnak. Az egyik a könyv és
+handout, a másik pedig a feladat és grafika típusú fájlok fordítását és
+megjelentetését végzi el. Utóbbi inkább fejlesztési szempontból fontos, mivel
+az ezekben található fájlok a könyvekben, illetve handoutokban szereplő
+feladatokat és ábrákat tartalmazzák. A két folyamat felépítése teljesen azonos,
+csupán abban tér el, hogy milyen típusú fájlokat dolgoznak fel:
+
+\begin{enumerate}
+	\item \texttt{\textbf{actions/checkout}}:
+	      Az előzőekhez hasonlóan a projekt klónozása a szerverre.
+
+	\item \texttt{\textbf{get-date}}:
+	      A jelenlegi dátum eltárolása.
+
+	\item \texttt{\textbf{actions/cache}}:
+	      A generált fájlok elmentése. Amennyiben a fájlok nem változtak, akkor
+	      nem kell újra lefordítani őket, ezzel drasztikusan lecsökkentve a
+	      futási időt.
+
+	\item \texttt{\textbf{actions/download-artifact}}:
+	      A korábban generált szkriptek letöltése.
+
+	\item \texttt{\textbf{link}}:
+	      Az általam készített osztályok és csomagok másolása a \texttt{texmf}
+	      mappába.
+
+	\item \texttt{\textbf{dependencies}}:
+	      A külső dependenciák telepítése.
+
+	\item \texttt{\textbf{compile}}:
+	      A dokumentumok fordítása.
+
+	\item \texttt{\textbf{actions/upload-artifact}}:
+	      A fordítás során keletkezett fájlok feltöltése.
+\end{enumerate}

@@ -481,15 +481,15 @@ kellett módosítani, és a változás az összes dokumentumra kiterjedt.
 
 % General settings
 A dokumentumok megjelenésének egységesítése érdekében különböző általános
-beállítást vezettem be. Definiálva lett például a dokumentumok betűtípusa,
+beállítást végeztem el. Definiálva lett például a dokumentumok betűtípusa,
 betűmérete. Különböző csomagokat hívtam meg, amelyeket az összes dokumentumban
 használtam, így például a matematikai képletekhez szükséges csomagokat, a
 grafikus elemeket kezelő csomagokat, és még sok mást.
 
 % Simple commands
-Létrehoztam alapvető parancsokat. Létrehoztam az általunk használatos
-matematikai operátorokhoz tartozó parancsokat, definiáltam a gyakran használt
-konstansokhoz tartozó szimbólumokat, és még sok egyszerű matematikai parancsot.
+Létrehoztam alapvető parancsokat, az általunk használatos matematikai
+operátorokhoz tartozó parancsokat, definiáltam a gyakran használt konstansokhoz
+tartozó szimbólumokat, és még sok egyszerű matematikai parancsot.
 A skaláris szorzáshoz tartozó parancson keresztül megmutatom, hogy hogyan
 lehet saját parancsokat definiálni. A célunk az, hogy egy olyan parancsot
 hozzunk létre, amelynek két argumentuma van, és az alábbi megjelenést
@@ -506,7 +506,7 @@ kifejtése, ahol az argumentumokat \texttt{\#1}, \texttt{\#2}, \ldots,
 tartalmazhat, valamint maximálisan kilenc paramétert várhat. A megvalósítás
 a következőképpen néz ki:
 
-\begin{lstlisting}[language=tex,caption={Skaláris szorzás parancs definíciója]}]
+\begin{lstlisting}[language=tex,caption={Skaláris szorzás parancs definíciója}]
   % \newcommand{<parancs neve>}[<argumentumok száma>]{<parancs definíciója>}
   \newcommand{\scalar}[2]{< #1 \, ; \, #2 >}
 \end{lstlisting}
@@ -534,7 +534,7 @@ környezetet, célunk az alábbi kinézet elérése:
 A kinézet eléréséhez az \texttt{mdframed} csomagot használtam, amely
 segítségével definiáltam egy új, saját környezetet:
 
-\begin{lstlisting}[language=tex,caption={Saát megjegyzés környezet}]
+\begin{lstlisting}[language=tex,caption={Saját megjegyzés környezet}]
   \usepackage{mdframed}
   \newmdenv[
     backgroundcolor=yellow-base!5,%  Háttérszín (kevert szín)
@@ -553,7 +553,7 @@ első paramétere a környezet neve, a következő -- opcionális -- paramétere
 környezet argumentumainak száma, mely után megadhatjuk a környezet opcionális
 paramétereinek alapértelmezett értékeit. Az utolsó két paraméter pedig a
 környezet kezdő és záró parancsainak definíciója. Mivel szeretnénk, hogy a
-megjegyzések sorszámozva is legyenek, ezért egy számlálot is létre kellett
+megjegyzések sorszámozva is legyenek, ezért egy számlálót is létre kellett
 hoznunk. A megvalósítás a következőképpen néz ki:
 
 \begin{lstlisting}[language=tex,caption={Megjegyzés környezet}]
@@ -585,10 +585,10 @@ utána pedig a
 parancsot adtuk ki.
 
 Hogy mit is csinál ez? A fejlesztők gyakran \texttt{@}
-karaktereket raknak az olyan parancsok, környezetek nevébe, amelyeket nem
-közvetlen használatra vannak kitalálva. A \LaTeX{} alapvetően ezt a karaktert
-nem betűként kezeli, ami azt jelenti, hogy az ilyen makrók alapértelmezett
-üzemmódban nem használhatóak. A
+karaktereket helyeznek el az olyan parancsok, környezetek nevébe, amelyeket nem
+közvetlen, átlagos felhasználók általi használatra vannak kitalálva. A \LaTeX{}
+alapértelmezett üzemmódban ezt a karaktert nem betűként kezeli, ami azt jelenti,
+hogy az ilyen makrók ebben az üzemmódban nem használhatóak. A
 \inlinecode{\textbackslash makeatletter}
 paranccsal a \LaTeX{} fordító számára azt jelezzük, hogy az \texttt{@} karaktert
 betűként kezelje. Ezáltal az ilyen karaktereket tartalmazó parancsokat is
@@ -607,28 +607,34 @@ kiírtuk a megjegyzés sorszámát. Utána egy ideiglenes változóba elmentjük
 a kapott argumentumot, amely -- akármennyire is redundánsnak tűnik --  a későbbi
 elágazás miatt egy nem elhagyható lépés. Mivel amennyiben nincs cím megadva,
 akkor a címet körül vevő kapcsos zárójeleket sem szeretnénk megjeleníteni,
-ezért egy elágazással ellenőrizzük, hogy a kapott cím \texttt{\textbackslash
-	@nil}-e. Amennyiben nem, akkor 0,5 em hely kihagyása után
-kiírjuk a címet. A környezet záró parancsában pedig a korábban definiált
-keret környezet záró parancsát hívtuk meg.
+ezért egy elágazással ellenőrizzük, hogy a kapott cím
+\inlinecode{\textbackslash @nil}-e.
+Amennyiben nem, akkor 0,5 em hely kihagyása után kiírjuk a címet. A környezet
+záró parancsában pedig a korábban definiált keret környezet záró parancsát
+hívtuk meg.
 
 % ------------------------------------------------------------------------------
 \subsection{A feladat környezet}
 % ------------------------------------------------------------------------------
 
 % The exercise environment
-A legbonyolultabb kihívás a feladat (\texttt{exercise}) környezet létrehozása
-volt. Az ezzel kapcsolatos elvárások a következőek voltak:
+A legbonyolultabb kihívást a feladat (\texttt{exercise}) környezet létrehozása
+jelentette. Az ezzel kapcsolatos elvárások a következőek voltak:
 \begin{itemize}
-	\item Legyen egy opcionális, és egy kötelező paramétere. Utóbbi a feladat
-	      címe. Előbbi pedig egy olyan hosszmérték amennyit ki szeretnénk hagyni,
-	      amennyiben a megoldás nincs kiiratva. Ennek alapértelmezett értéke
-	      5 cm.
+	\item Legyen egy kötelező paramétere, amely maga a feladat címe.
 
-	      % \item A feladatok számozva legyenek.
+	      % Legyen egy opcionális, és egy kötelező paramétere. Utóbbi a feladat
+	      % címe. Előbbi pedig egy olyan hosszmérték amennyit ki szeretnénk hagyni,
+	      % amennyiben a megoldás nincs kiiratva. Ennek alapértelmezett értéke
+	      % 5 cm.
 
-	\item Legyen egy külön csomagban definiálva, mely csomagnak opcionálisan
-	      paramétereket adhatunk meg.
+	\item A feladatok számozva legyenek.
+
+	      % \item A környezeten belül definiálva lehessen a feladat megoldását.
+
+	\item Legyen egy külön csomagban definiálva, melyet opcionális paraméterekkel
+	      tudunk meghívni:
+
 	      \begin{itemize}
 		      \item Amennyiben a \texttt{print-solutions} paramétert megadjuk,
 		            akkor a feladatok megoldásai is megjelennek.
@@ -653,7 +659,7 @@ van. Egyrészt a \LaTeX{} fordító számára ez egy csomagot jelent, és nem eg
 dokumentumot, így a preambulumban a \texttt{usepackage} paranccsal tudjuk
 meghívni. Másrészt pedig mivel ez a fájltípus kifejezetten a \LaTeX{} csomagok
 számára lett kitalálva, ezért például használhatjuk az \texttt{@} karaktert
-a parancsok nevében, anélkül, hogy előrre a \texttt{makeatletter} parancsot
+a parancsok nevében, anélkül, hogy előre a \texttt{makeatletter} parancsot
 kellene kiadnunk.
 
 Először meg kell adnunk, hogy milyen \TeX{} formátumot használunk, valamint
@@ -720,16 +726,16 @@ Amennyiben a \texttt{keep-space} opció aktív, akkor a kihagyott üres hely
 ponthálós hátteret kap. Egyébként pedig üresen hagyjuk a hátteret.
 
 \begin{lstlisting}[language=tex,caption={Konstansok definiálása}]
-  \def\@@cb{yellow-base!5}%
-  \def\@@cf{blue-base}%
-  \def\@@ct{white}
+  \def\@@cb{yellow-base!5}% colback
+  \def\@@cf{blue-base}% colframe
+  \def\@@ct{white} coltitle
 
   % Üres hely mintázata, amennyiben a 'keep-space' opció aktív
   \ifkeep@@space%
     \def\@@ul{%
       \begin{tcbclipinterior}
         \fill[
-        pattern={%
+        pattern={% underlay
           Dots[distance=5mm, angle=90],%
         },%
         pattern color=gray,
@@ -824,7 +830,7 @@ paraméter pedig maga a megoldás.
 
   \end{lstlisting}
 \end{minipage}\hfill
-\begin{minipage}[t]{.63\textwidth}
+\begin{minipage}[t]{.55\textwidth}
 	\begin{exercise}{Megoldással}
 		Mennyi $2+2$?
 
@@ -855,8 +861,132 @@ paraméter pedig maga a megoldás.
 	\makeatother
 \end{minipage}
 
-
-
 % ------------------------------------------------------------------------------
 \subsection{Az fájltípusok és a hozzájuk tartozó környezetek}
 % ------------------------------------------------------------------------------
+
+Az univerzális parancsok és környezetek mellett a dokumentumok fejlesztése
+során szükség volt olyan specifikus parancsokra és környezetekre is, amelyek
+csak egy-egy fájltípushoz tartoznak. Ennek érdekében 3 fájl típust definiáltam:
+grafika vagy feladat (\texttt{math-standalone}), handout (\texttt{math-handout})
+és könyv (\texttt{math-book}).
+
+A \texttt{math-standalone} osztály leginkább a fejlesztés során volt hasznos.
+Egyrészt, mivel minden feladat és grafika külön fájlban van tárolva, ezért ezek
+szerkesztésekor nem kellett a teljes dokumentumot fordítani, hanem csak a
+szerkesztett fájlt. Másrészt pedig a fejlesztés során a grafikák és feladatok
+megjelenését is könnyen tudtam ellenőrizni. Paramétere egyrészt a dokumentum
+nyelve, másrészt pedig a dokumentum típusa, amely lehet vagy \texttt{graphics},
+vagy \texttt{exercise}. Amennyiben ez egy feladat típusú dokumentum, akkor --
+annak függvényében, hogy a \texttt{nosolutions} paramétert megadtuk-e --
+meghívja a \texttt{math-exercise} csomagot, vagy a \texttt{print-solutions},
+vagy a \texttt{keep-space} paramétererrel. Grafikák esetén a
+\texttt{math-exercise} csomag nem kerül meghívásra.
+
+A \texttt{math-book} osztály hosszabb dokumentumok fejlesztése esetén lehet
+hasznos választás. Alapja az \texttt{scrbook} osztály, amely a \texttt{KOMA
+	script} része. A \texttt{KOMA script} egy Markus Kohm  által megalkotott
+sokoldalú osztály-, és csomagkészlet. Ennek megalkotása mögött a fő motiváció
+az volt, hogy az európai tipográfiai szabványoknak megfelelő dokumentumok
+létrehozása egyszerűbb legyen. Tartalmazza többek között a standard \LaTeX{}
+osztályok alternatíváit, valamint számos olyan csomagot, amelyek a dokumentumok
+formázását teszik egyszerűbbé.
+
+Végül elérkeztünk a \texttt{math-handout} osztályhoz, amely alapja szintén
+a \texttt{KOMA script}. Célja, hogy olyan dokumentumokat hozhassunk létre vele,
+melyben található feladatok nagyjából 45 perc alatt megoldhatóak legyenek.
+
+% ------------------------------------------------------------------------------
+\section{Az elkészült dokumentumok}
+% ------------------------------------------------------------------------------
+
+Az általam készített oktatási anyagokhoz a \texttt{math-handout} osztályt
+használtam fel. Ez ebben lévő feladatok és grafikák alapja pedig a
+\texttt{math-standalone} osztály. A vonalmenti menti integrálokhoz kapcsolódó
+gyakorló anyagon keresztül fogom bemutatni, hogy hogyan is néz ki egy ilyen
+eszközökkel készített dokumentum.
+
+A dokumentum elején egy dekoratív cím található. Ez a fő címen kívül tartalmazza
+még a sorszámot, a tárgy nevét, a témakört, és az utolsó módosítás dátumát.
+A cím megjelenését a \texttt{math-handout} osztályban definiáltam, tehát
+fejlesztés során csak ez ebben lévő szöveget kellett megadni, a megjelenésről
+maga az osztály gondoskodott. Ezután egy rövid összefoglaló következik a
+dokumentum tartalmáról.
+
+\begin{figure}[htb]
+	\centering
+	{
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{2pt}%
+		\renewcommand\fbox{\fcolorbox{gray}{white}}
+		\fbox{\includegraphics[width=\textwidth]{./figures/example-handout-title.pdf}}
+	}
+	\caption{A dokumentumok címe}
+\end{figure}
+
+Ezután a tartalmi rész következett, amely kettő vagy három fő részből állt.
+Az elején egy elméleti összefoglaló található, amely tartalmazza a témakörhöz
+tartozó legfontosabb definíciókat és tételeket. Ezek megjelenése a korábban
+ismertetett megjegyzés környezettel azonos.
+
+\begin{figure}[htb]
+	\centering
+	{
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{2pt}%
+		\renewcommand\fbox{\fcolorbox{gray}{white}}
+		\fbox{\includegraphics[width=\textwidth]{./figures/example-handout-definition.pdf}}
+	}
+	\caption{Egy definíció megjelenése}
+\end{figure}
+
+Az elmélet átismétlése után a hallgatók a gyakorló feladatokat találhatták meg.
+Minden gyakorló anyag általában három feladatot tartalmazott, több alfeladattal
+együtt. A szóban forgó iromány egy ívhossz számítós, egy skalármezős görbementi
+integrálszámítós, és egy vektormezős görbementi integrálszámítós feladatot
+tartalmaz, rendre négy, négy, és három alfeladattal.
+
+\begin{figure}[htb]
+	\centering
+	{
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{2pt}%
+		\renewcommand\fbox{\fcolorbox{gray}{white}}
+		\fbox{\includegraphics[width=\textwidth]{./figures/example-handout-exercise-no-sol.pdf}}
+	}
+	\caption{Görbe ívhosszának számítása}
+\end{figure}
+
+A feladatok kezelése a \texttt{math-exercise} csomagban definiált környezet
+segítségével történt. A feladatok számozása automatikusan történt, előtagnak
+pedig a dokumentum sorszámát használtam. A feladatok megoldásai is természetesen
+elérhetőek voltak, a \texttt{math-handout} osztály a \texttt{math-exercise}
+csomagot automatikusan a \texttt{print-solutions} paraméterrel hívja meg.
+
+\begin{figure}[htb]
+	\centering
+	{
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{2pt}%
+		\renewcommand\fbox{\fcolorbox{gray}{white}}
+		\fbox{\includegraphics[width=\textwidth]{./figures/example-handout-exercise-just-sol.pdf}}
+	}
+	\caption{Az első alfeladat megoldása}
+\end{figure}
+
+A dokumentumok végén általában egy segédlet is található. Ez tartalmazhat
+azonosságokat, vagy akár vizuális segítséget is nyújthat a hallgatóknak.
+Ehhez a témakörhöz egy görbék paraméterezésével kapcsolatos összefoglalót
+készítettem, amely tartalmazza a tantárgy során érintett legfontosabb görbék
+paraméteres egyenleteit, és a hozzájuk tartozó ábrákat.
+
+\begin{figure}[htb]
+	\centering
+	{
+		\setlength{\fboxsep}{10pt}%
+		\setlength{\fboxrule}{2pt}%
+		\renewcommand\fbox{\fcolorbox{gray}{white}}
+		\fbox{\includegraphics[width=\textwidth]{./figures/example-handout-exercise-just-sol.pdf}}
+	}
+	\caption{Egy $\mathbb R^3$-beli egyenes paraméterezése}
+\end{figure}
